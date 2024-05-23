@@ -1,0 +1,27 @@
+/* styles.css */
+
+.domino {
+    display: inline-block;
+    margin: 5px;
+    width: 50px;
+    height: 100px; /* Altura de 100px para acomodar a imagem de 50px de altura */
+    position: relative;
+}
+
+/* Estilos para as imagens dentro da peça de dominó */
+.domino img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Orientação vertical */
+.domino.vertical {
+    transform: rotate(0deg);
+}
+
+/* Orientação horizontal */
+.domino.horizontal {
+    transform: rotate(90deg);
+    width: 100px; /* Ajuste de largura para acomodar a rotação */
+    height: 50px; /* Ajuste de altura para acomodar a rotação */
+}
