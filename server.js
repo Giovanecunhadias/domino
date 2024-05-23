@@ -34,13 +34,28 @@ io.on('connection', (socket) => {
     socket.on('moveDomino', (domino) => {
         if (socket.id === gameState.currentPlayer) {
             gameState.board.push(domino);
-            gameState.players[socket.id].hand = gameState.players[socket.id].hand.filter(d => d.toString() !== domino.toString());
+            gameState.players[socket.id].hand = gameState.players[socket.id].hand.filter(d => d.toString() !== domino.toString() !== domino.toString());
 
             gameState.currentPlayer = Object.keys(gameState.players).find(id => id !== socket.id);
 
             io.emit('updateGameState', gameState);
+
+            const winer = checkWiner();
+            if (winer){
+                io.emit('gameOver', winer);
+            }
         }
     });
+
+    function checkWiner(){
+        const playerIds = Object.keys(gameState.players);
+        for(const playerId of playerIds){
+            if(gameState.players[playerId].hand.length === 0){
+                return gameState.players[playerId].name;
+            }
+        }
+        return null;
+    }
 
     socket.on('disconnect', () => {
         delete gameState.players[socket.id];
